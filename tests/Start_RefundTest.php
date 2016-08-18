@@ -65,4 +65,21 @@ class Start_RefundTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($refund["charge"]["refunded_amount"], 1000);
         $this->assertEquals($refund["charge"]["captured_amount"], 50);
     }
+
+    function testRefundList()
+    {
+        $refund_1 = Start_Refund::create(array(
+            "charge_id" => $this->charge["id"],
+            "amount" => 100
+        ));
+
+        $refund_2 = Start_Refund::create(array(
+            "charge_id" => $this->charge["id"],
+            "amount" => 100
+        ));
+
+        $list = Start_Refund::all($this->charge["id"]);
+
+        $this->assertCount(2, $list["refunds"]);
+    }
 }
