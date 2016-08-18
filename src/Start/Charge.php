@@ -39,4 +39,14 @@ class Start_Charge {
         $return_data = Start_Request::make_request("/charges");
         return $return_data;
     }
+
+    /**
+     * Load charge
+     *
+     * @param  array $data the data for the transaction
+     */
+    public static function get($charge_id) {
+        $return_data = Start_Request::make_request("/charges/" . $charge_id);
+        return $return_data;
+    }
 }

@@ -47,6 +47,23 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($result["state"], "captured");
     }
 
+    function testLoadCharge()
+    {
+        $data = array(
+            "amount" => 1050,
+            "currency" => "usd",
+            "email" => "ahmed@example.com",
+            "card" => $this->cardForSuccess,
+            "description" => "Charge for test@example.com"
+        );
+
+        $charge = Start_Charge::create($data);
+
+        $result = Start_Charge::get($charge["id"]);
+
+        $this->assertEquals($result["state"], "captured");
+    }
+
     function testInvalidData()
     {
         $data = array(
