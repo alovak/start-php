@@ -14,7 +14,7 @@ class Start_Customer {
      * @throws Exception for any other errors
      */
     public static function create(array $data) {
-        $return_data = Start_Request::make_request("customer", $data);
+        $return_data = Start_Request::make_request("/customers", $data);
         return $return_data;
     }
 
@@ -28,7 +28,7 @@ class Start_Customer {
      * @throws Exception for any other errors
      */
     public static function all() {
-        $return_data = Start_Request::make_request("customer_list");
+        $return_data = Start_Request::make_request("/customers");
         return $return_data;
     }
 }

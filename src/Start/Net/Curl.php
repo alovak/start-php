@@ -5,7 +5,6 @@ class Start_Net_Curl {
             define('CURL_SSLVERSION_TLSv1_2', 6);
         }
 
-        $url = Start::getEndPoint($url);
         $ch = curl_init();
 
         if (Start::getUserAgent() != "") {
