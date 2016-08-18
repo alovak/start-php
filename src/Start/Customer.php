@@ -31,4 +31,10 @@ class Start_Customer {
         $return_data = Start_Request::make_request("/customers");
         return $return_data;
     }
+
+    /* Retrieve an existing Customer */
+    public static function get($customer_id) {
+        $return_data = Start_Request::make_request("/customers/" . $customer_id);
+        return $return_data;
+    }
 }
