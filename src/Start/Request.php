@@ -1,6 +1,9 @@
 <?php
 class Start_Request {
-    public static function make_request($url, $data = array()) {
+    public static function make_request($path, $data = array()) {
+
+        $url = Start::getBaseURL() . $path;
+
         try {
             return Start::$useCurl ? Start_Net_Curl::make_request($url, $data) : Start_Net_Stream::make_request($url, $data);
         } catch (Start_Error_SSLError $e) {

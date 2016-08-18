@@ -2,7 +2,6 @@
 class Start_Net_Stream {
 
     public static function make_request($url, $data = array()) {
-        $url = Start::getEndPoint($url);
         $api_key = Start::getApiKey();
 
         $headers = array(
