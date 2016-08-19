@@ -28,8 +28,9 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
 
     function testList()
     {
-        $result = Start_Charge::all();
-        //No assertion. If there is an error, an exception is thrown. Otherwise it was ok.
+        $all = Start_Charge::all();
+
+        $this->assertNotEmpty($all["charges"]);
     }
 
     function testCreateSuccess()
