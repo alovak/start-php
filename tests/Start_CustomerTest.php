@@ -1,4 +1,7 @@
 <?php
+
+require_once 'TestHelper.php';
+
 class Start_CustomerTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
@@ -54,16 +57,12 @@ class Start_CustomerTest extends \PHPUnit_Framework_TestCase
     {
         /* Token should be created via JavaScipt library Beautiful.js */
         /* more info here: https://docs.start.payfort.com/guides/beautiful.js/ */
-        Start::setApiKey('test_open_k_fcd2be7651c659bbdfc2');
-
-        $token = Start_Token::create(array(
+        $token = TestHelper::createToken(array(
             "number" => "4242424242424242",
             "exp_month" => 11,
             "exp_year" => 2020,
             "cvc" => "123"
         ));
-
-        Start::setApiKey('test_sec_k_2b99b969196bece8fa7fd');
 
         $customer = Start_Customer::create(array(
             "email" => "new@customer.com",
