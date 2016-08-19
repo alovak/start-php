@@ -31,7 +31,7 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
     {
         /* token should be created via javascipt library beautiful.js */
         /* more info here: https://docs.start.payfort.com/guides/beautiful.js/ */
-        $token = testhelper::createtoken($this->cardForSuccess);
+        $token = TestHelper::createtoken($this->cardForSuccess);
 
         $data = array(
             "amount" => 1050,
@@ -76,11 +76,15 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
 
     function testCreateFailure()
     {
+        /* token should be created via javascipt library beautiful.js */
+        /* more info here: https://docs.start.payfort.com/guides/beautiful.js/ */
+        $token = TestHelper::createtoken($this->cardForFailure);
+
         $data = array(
             "amount" => 1050,
             "currency" => "usd",
             "email" => "ahmed@example.com",
-            "card" => $this->cardForFailure,
+            "card" => $token["id"],
             "description" => "Charge for test@example.com"
         );
         try {
@@ -93,11 +97,15 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
 
     function testMetadata()
     {
+        /* token should be created via javascipt library beautiful.js */
+        /* more info here: https://docs.start.payfort.com/guides/beautiful.js/ */
+        $token = TestHelper::createtoken($this->cardForSuccess);
+
         $data = array(
             "amount" => 1050,
             "currency" => "usd",
             "email" => "ahmed@example.com",
-            "card" => $this->cardForSuccess,
+            "card" => $token["id"],
             "description" => "Charge for test@example.com",
             "metadata" => array(
                 "reference_id" => "1234567890",
