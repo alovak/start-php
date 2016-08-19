@@ -1,4 +1,5 @@
 <?php
+require_once 'TestHelper.php';
 
 class Start_ChargeTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +17,7 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
         "cvc" => "123"
     );
 
-    function setUp()
+    public static function setUpBeforeClass()
     {
         Start::$fallback = false;
         Start::setApiKey('test_sec_k_2b99b969196bece8fa7fd');
@@ -26,43 +27,35 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    function testList()
-    {
-        $all = Start_Charge::all();
-
-        $this->assertNotEmpty($all["charges"]);
-    }
-
     function testCreateSuccess()
     {
+        /* token should be created via javascipt library beautiful.js */
+        /* more info here: https://docs.start.payfort.com/guides/beautiful.js/ */
+        $token = testhelper::createtoken($this->cardForSuccess);
+
         $data = array(
             "amount" => 1050,
             "currency" => "usd",
             "email" => "ahmed@example.com",
-            "card" => $this->cardForSuccess,
-            "description" => "Charge for test@example.com"
-        );
-
-        $result = Start_Charge::create($data);
-
-        $this->assertEquals($result["state"], "captured");
-    }
-
-    function testLoadCharge()
-    {
-        $data = array(
-            "amount" => 1050,
-            "currency" => "usd",
-            "email" => "ahmed@example.com",
-            "card" => $this->cardForSuccess,
+            "card" => $token["id"],
             "description" => "Charge for test@example.com"
         );
 
         $charge = Start_Charge::create($data);
 
-        $result = Start_Charge::get($charge["id"]);
+        $this->assertEquals($charge["state"], "captured");
 
-        $this->assertEquals($result["state"], "captured");
+        return $charge;
+    }
+
+    /**
+     * @depends testCreateSuccess
+     */
+    function testLoadCharge($existing_charge)
+    {
+        $charge = Start_Charge::get($existing_charge["id"]);
+
+        $this->assertEquals($charge["state"], "captured");
     }
 
     function testInvalidData()
@@ -119,4 +112,12 @@ class Start_ChargeTest extends \PHPUnit_Framework_TestCase
             "tag" => "new"
         ));
     }
+
+    function testList()
+    {
+        $all = Start_Charge::all();
+
+        $this->assertNotEmpty($all["charges"]);
+    }
+
 }
