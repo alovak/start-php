@@ -18,4 +18,10 @@ class Start_Customer {
         $return_data = Start_Request::make_request("/customers/" . $customer_id);
         return $return_data;
     }
+
+    /* Create a new customer for given $data */
+    public static function update($customer_id, array $data) {
+        $return_data = Start_Request::make_request("/customers/" . $customer_id, $data, 'PUT');
+        return $return_data;
+    }
 }

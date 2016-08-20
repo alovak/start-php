@@ -1,7 +1,7 @@
 <?php
 class Start_Net_Stream {
 
-    public static function make_request($url, $data = array()) {
+    public static function make_request($url, $data = array(), $method) {
         $api_key = Start::getApiKey();
 
         $headers = array(
@@ -10,7 +10,9 @@ class Start_Net_Stream {
         );
 
         if (!empty($data)) {
-            $method = 'POST';
+            if ($method == '') {
+                $method = 'POST';
+            }
             $content = json_encode($data);
             array_push($headers, 'Content-Type: application/json');
             array_push($headers, 'Content-Length: ' . strlen($content));

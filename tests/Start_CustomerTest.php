@@ -14,15 +14,14 @@ class Start_CustomerTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private $success_data = array(
-        "name" => "Test Customer",
-        "email" => "test@customer.com",
-        "description" => "Signed up at the fair"
-    );
 
     function testCreateCustomerWithoutCardToken()
     {
-        $customer = Start_Customer::create($this->success_data);
+        $customer = Start_Customer::create(array(
+            "name" => "Test Customer",
+            "email" => "test@customer.com",
+            "description" => "Signed up at the fair"
+        ));
 
         $this->assertEquals($customer["email"], "test@customer.com");
         $this->assertEquals($customer["name"], "Test Customer");
@@ -41,6 +40,20 @@ class Start_CustomerTest extends \PHPUnit_Framework_TestCase
         $customer = Start_Customer::get($existing_customer["id"]);
 
         $this->assertEquals($customer["email"], "test@customer.com");
+    }
+
+    /**
+     * @depends testCreateCustomerWithoutCardToken
+     */
+    function testUpdateCustomer($existing_customer)
+    {
+        $updated_customer = Start_Customer::update($existing_customer["id"], array(
+            "name" => "Test Updated Customer",
+            "email" => "test-updated@customer.com"
+        ));
+
+        $this->assertEquals($updated_customer["email"], "test-updated@customer.com");
+        $this->assertEquals($updated_customer["name"], "Test Updated Customer");
     }
 
     /**
