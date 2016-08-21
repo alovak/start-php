@@ -18,11 +18,10 @@ class Start_Net_Curl {
         curl_setopt($ch, CURLOPT_USERPWD, Start::getApiKey() . ':');
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         if (!empty($data)) {
-            if ($method == 'PUT') {
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+            if ($method == 'PUT' || $method == 'GET') {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
             }
 
-            curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'Content-Type: application/json',
