@@ -6,6 +6,7 @@ require_once dirname(__FILE__) . '/src/Start/Net/Curl.php';
 require_once dirname(__FILE__) . '/src/Start/Net/Stream.php';
 require_once dirname(__FILE__) . '/src/Start/Request.php';
 require_once dirname(__FILE__) . '/src/Start/Charge.php';
+require_once dirname(__FILE__) . '/src/Start/Capture.php';
 require_once dirname(__FILE__) . '/src/Start/Refund.php';
 require_once dirname(__FILE__) . '/src/Start/Error.php';
 require_once dirname(__FILE__) . '/src/Start/Customer.php';
